@@ -4,6 +4,11 @@ import Navbar from "./Components/Navbar/Navbar";
 import Demo from "./Pages/Demo/Demo";
 import SignIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp/SignUp";
+import {
+  DEMO_PAGE_ROUTE,
+  SIGNIN_PAGE_ROUTE,
+  SIGNUP_PAGE_ROUTE,
+} from "./routes";
 
 const M = require("materialize-css");
 
@@ -17,11 +22,11 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route path="/demo" component={Demo} />
-          <Route path="/sign-in" component={SignIn} />
-          <Route path="/sign-up" component={SignUp} />
+          <Route path={DEMO_PAGE_ROUTE} component={Demo} />
+          <Route path={SIGNIN_PAGE_ROUTE} component={SignIn} />
+          <Route path={SIGNUP_PAGE_ROUTE} component={SignUp} />
           <Route exact path="/">
-            <Redirect to="/demo" />
+            <Redirect to={DEMO_PAGE_ROUTE} />
           </Route>
         </Switch>
       </BrowserRouter>

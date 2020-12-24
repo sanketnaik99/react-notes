@@ -1,0 +1,18 @@
+.new-note-card {
+  margin-top: 80px;
+  padding: 20px;
+  padding-bottom: 0px;
+}
+.new-note-card-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500 !important;
+}
+.new-note-card-content {
+  padding-left: 0px !important;
+}
+.new-note-description {
+  font-size: 16px;
+  margin-top: 4px;
+  margin-bottom: 0px;
+  font-weight: 400;
+}

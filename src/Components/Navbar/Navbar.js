@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
+import {
+  DEMO_PAGE_ROUTE,
+  SIGNIN_PAGE_ROUTE,
+  SIGNUP_PAGE_ROUTE,
+} from "../../routes";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -13,14 +18,14 @@ const Navbar = () => {
             <i className="material-icons">menu</i>
           </a>
           <ul className="right hide-on-med-and-down">
-            <li className={useRouteMatch("/demo") ? "active" : ""}>
-              <NavLink to="/demo">Demo</NavLink>
+            <li className={useRouteMatch(DEMO_PAGE_ROUTE) ? "active" : ""}>
+              <NavLink to={DEMO_PAGE_ROUTE}>Demo</NavLink>
             </li>
-            <li className={useRouteMatch("/sign-in") ? "active" : ""}>
-              <NavLink to="/sign-in">Sign In</NavLink>
+            <li className={useRouteMatch(SIGNIN_PAGE_ROUTE) ? "active" : ""}>
+              <NavLink to={SIGNIN_PAGE_ROUTE}>Sign In</NavLink>
             </li>
-            <li className={useRouteMatch("/sign-up") ? "active" : ""}>
-              <NavLink to="/sign-up">Sign Up</NavLink>
+            <li className={useRouteMatch(SIGNUP_PAGE_ROUTE) ? "active" : ""}>
+              <NavLink to={SIGNUP_PAGE_ROUTE}>Sign Up</NavLink>
             </li>
           </ul>
         </div>
@@ -28,17 +33,17 @@ const Navbar = () => {
 
       <ul className="sidenav" id="mobile-demo">
         <li>
-          <NavLink to="/demo" activeClassName="active">
+          <NavLink to={DEMO_PAGE_ROUTE} activeClassName="active">
             Demo
           </NavLink>
         </li>
         <li>
-          <NavLink to="/sign-in" activeClassName="active">
+          <NavLink to={SIGNIN_PAGE_ROUTE} activeClassName="active">
             Sign In
           </NavLink>
         </li>
         <li>
-          <NavLink to="/sign-up" activeClassName="active">
+          <NavLink to={SIGNUP_PAGE_ROUTE} activeClassName="active">
             Sign Up
           </NavLink>
         </li>
