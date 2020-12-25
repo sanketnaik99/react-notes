@@ -1,12 +1,23 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import NewNote from "../../Components/NewNote/NewNote";
+import NotesList from "../../Components/NotesList/NotesList";
 
-export default class Demo extends Component {
+class Demo extends Component {
   render() {
     return (
       <div>
         <NewNote />
+        <NotesList notes={this.props.notes} />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    notes: state.notes.notes,
+  };
+};
+
+export default connect(mapStateToProps, null)(Demo);

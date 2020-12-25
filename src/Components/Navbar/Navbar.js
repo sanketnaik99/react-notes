@@ -7,13 +7,16 @@ import {
   SIGNUP_PAGE_ROUTE,
 } from "../../routes";
 import "./Navbar.css";
+import logo from "../../notes-logo.png";
 
 const Navbar = () => {
   return (
     <div>
       <nav>
-        <div className="nav-wrapper blue">
-          <div className="brand-logo center navbar-title">Notes.</div>
+        <div className="nav-wrapper indigo darken-1">
+          <div className="brand-logo center navbar-title">
+            <img src={logo} alt="Notes Logo" className="navbar-notes-logo" />
+          </div>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>

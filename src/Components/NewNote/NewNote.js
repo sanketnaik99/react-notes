@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addNote } from "../../store/actions/notesActions";
 import "./NewNote.css";
 
 class NewNote extends Component {
@@ -12,6 +14,33 @@ class NewNote extends Component {
     titleSuccessText: null,
     contentSuccessText: null,
   };
+
+  descriptions = [
+    <p className="new-note-description">
+      Go ahead and write down your thoughts. This way you won't forget that{" "}
+      <span className="new-note-description-bold">"Million Dollar Idea"</span>.
+    </p>,
+    <p className="new-note-description">
+      Write down your thoughts here. Alternatively, you can randomly mash your
+      keyboard keys to test this out.
+    </p>,
+    <p className="new-note-description">
+      You know how this works right? Fill out the text fields and click the
+      button. <span className="new-note-description-bold">EASY</span>.
+    </p>,
+    <p className="new-note-description">
+      Hint: refresh this page to see a different description :)
+    </p>,
+    <p className="new-note-description">
+      Here's some text for you to copy and paste into the fields below. <br />{" "}
+      Hello World! (obviously) <br /> Lorem ipsum dolor sit amet consectetur
+      adipisicing elit.
+    </p>,
+  ];
+
+  componentDidMount() {
+    this.currentDescription = this.descriptions[Math.floor(Math.random() * 5)];
+  }
 
   handleTitleChange = (event) => {
     this.setState({
@@ -37,6 +66,23 @@ class NewNote extends Component {
     });
     const isValid = this.validate();
     console.log(this.state);
+    console.log(isValid);
+    if (isValid) {
+      this.props.addNote({
+        title: this.state.title,
+        content: this.state.content,
+      });
+      this.setState({
+        title: "",
+        content: "",
+        titleErrorStatus: null,
+        contentErrorStatus: null,
+        titleErrorText: null,
+        contentErrorText: null,
+        titleSuccessText: null,
+        contentSuccessText: null,
+      });
+    }
   };
 
   validate = () => {
@@ -63,19 +109,24 @@ class NewNote extends Component {
       contentSuccessText = "Looks Good.";
     }
 
-    if (titleErrorStatus !== "" || contentErrorStatus !== "") {
-      this.setState({
-        ...this.state,
-        titleErrorStatus,
-        contentErrorStatus,
-        titleErrorText,
-        contentErrorText,
-        titleSuccessText,
-        contentSuccessText,
-      });
-    }
+    this.setState({
+      ...this.state,
+      titleErrorStatus,
+      contentErrorStatus,
+      titleErrorText,
+      contentErrorText,
+      titleSuccessText,
+      contentSuccessText,
+    });
 
-    return true;
+    if (
+      titleErrorStatus === "TITLE_INVALID" ||
+      contentErrorStatus === "CONTENT_INVALID"
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   render() {
@@ -83,10 +134,15 @@ class NewNote extends Component {
       <div className="container">
         <div className="card new-note-card">
           <span className="card-title new-note-card-title">Add New Note</span>
-          <p className="new-note-description">
+          {/* <p className="new-note-description">
             Go ahead and write down your thoughts. This way you won't forget
-            that <strong>"Million Dollar Idea"</strong>.
-          </p>
+            that{" "}
+            <span className="new-note-description-bold">
+              "Million Dollar Idea"
+            </span>
+            .
+          </p> */}
+          {this.currentDescription}
           <div className="card-content new-note-card-content">
             <form onSubmit={this.handleSubmit}>
               <div className="input-field">
@@ -133,12 +189,12 @@ class NewNote extends Component {
               </div>
               <div className="row right-align">
                 <button
-                  className="btn waves-effect blue waves-light"
+                  className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
                   type="submit"
                   name="action"
                 >
-                  Submit
-                  <i className="material-icons right">send</i>
+                  Done
+                  <i className="material-icons right">check</i>
                 </button>
               </div>
             </form>
@@ -149,4 +205,10 @@ class NewNote extends Component {
   }
 }
 
-export default NewNote;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNote: (note) => dispatch(addNote(note)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NewNote);
