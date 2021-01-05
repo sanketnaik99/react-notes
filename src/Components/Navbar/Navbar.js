@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import {
   DEMO_PAGE_ROUTE,
@@ -9,13 +9,29 @@ import {
 import "./Navbar.css";
 import logo from "../../notes-logo.png";
 
+const M = require("materialize-css");
+
 const Navbar = () => {
+  useEffect(() => {
+    var elems = document.querySelectorAll(".sidenav");
+    M.Sidenav.init(elems);
+  });
+
   return (
     <div>
       <nav>
         <div className="nav-wrapper indigo darken-1">
-          <div className="brand-logo center navbar-title">
-            <img src={logo} alt="Notes Logo" className="navbar-notes-logo" />
+          <div className="brand-logo center">
+            <img
+              src={logo}
+              alt="Notes Logo"
+              className="navbar-notes-logo hide-on-small-only"
+            />
+            <img
+              src={logo}
+              alt="Notes Logo"
+              className="navbar-notes-logo-small show-on-small hide-on-med-and-up"
+            />
           </div>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>

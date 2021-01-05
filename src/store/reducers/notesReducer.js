@@ -1,4 +1,4 @@
-import { ADD_NOTE } from "../actions/notesActions";
+import { ADD_NOTE, DELETE_NOTE } from "../actions/notesActions";
 
 const initialState = {
   notes: [
@@ -24,6 +24,12 @@ const notesReducer = (state = initialState, action) => {
         createdAt: Date.now().toString(),
       };
       return { ...state, notes: [...state.notes, newNote] };
+    case DELETE_NOTE:
+      const newNotes = state.notes.filter((note) => note.id !== action.id);
+      return {
+        ...state,
+        notes: newNotes,
+      };
     default:
       return state;
   }

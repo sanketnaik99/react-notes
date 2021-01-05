@@ -1,0 +1,13 @@
+.sign-in-container {
+  margin-top: 90px;
+}
+.sign-in-title {
+  /*font-size: 2em; */
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.sign-in-description {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 1.2em;
+}

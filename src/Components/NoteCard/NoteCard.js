@@ -1,37 +1,72 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { deleteNote } from "../../store/actions/notesActions";
+import "./NoteCard.css";
 
-const NoteCard = ({ note }) => {
-  const colors = [
-    "teal darken-3",
-    "blue-grey darken-3",
-    "grey darken-3",
-    "cyan darken-3",
-    "indigo darken-1",
-    "blue darken-3",
-  ];
+const M = require("materialize-css");
 
-  const cardColor = colors[Math.floor(Math.random() * 6)];
+class NoteCard extends Component {
+  componentDidMount = () => {
+    var elems = document.querySelectorAll(".modal");
+    M.Modal.init(elems);
+  };
 
-  return (
-    <div className="row">
-      <div className="col hide-on-small-only m2"></div>
-      <div className="col s12 m8">
-        <div className="card indigo darken-1 z-depth-2 hoverable">
-          <div className="card-content white-text">
-            <span className="card-title demo-note-title">{note.title}</span>
-            <p>{note.content}</p>
+  deleteCurrentNote = () => {
+    this.props.deleteNote(this.props.note.id);
+  };
+  render() {
+    return (
+      <div className="row">
+        <div className="col hide-on-small-only m2"></div>
+        <div className="col s12 m8">
+          <div className="card z-depth-2 hoverable">
+            <div className="card-content">
+              <span className="card-title demo-note-title">
+                {this.props.note.title}
+              </span>
+              <p>{this.props.note.content}</p>
+            </div>
+            <div className="card-action">
+              <a
+                className="waves-effect waves-light red btn-small modal-trigger"
+                href={"#deleteNote" + this.props.note.id}
+              >
+                <i className="material-icons left">delete</i>Delete
+              </a>
+            </div>
           </div>
-          <div className="card-action">
-            <a className="waves-effect waves-light red btn-small">
-              <i className="material-icons left">delete</i>Delete
+        </div>
+        <div id={"deleteNote" + this.props.note.id} className="modal">
+          <div className="modal-content">
+            <h4>Confirm</h4>
+            <p>
+              Are you sure that you want to delete the follwing note -{" "}
+              {this.props.note.title}?
+            </p>
+          </div>
+          <div className="modal-footer">
+            <a className="modal-close waves-effect waves-green btn-flat note-card-modal-button">
+              No
+            </a>
+            <a
+              className="modal-close waves-effect red-text waves-red btn-flat note-card-modal-button"
+              onClick={this.deleteCurrentNote}
+            >
+              Yes
             </a>
           </div>
         </div>
+        <div className="col hide-on-small-only m2"></div>
       </div>
-      <div className="col hide-on-small-only m2"></div>
-    </div>
-  );
+    );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteNote: (id) => dispatch(deleteNote(id)),
+  };
 };
 
-export default NoteCard;
+export default connect(null, mapDispatchToProps)(NoteCard);

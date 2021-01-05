@@ -13,6 +13,7 @@ class NewNote extends Component {
     contentErrorText: null,
     titleSuccessText: null,
     contentSuccessText: null,
+    currentDescription: null,
   };
 
   descriptions = [
@@ -39,7 +40,9 @@ class NewNote extends Component {
   ];
 
   componentDidMount() {
-    this.currentDescription = this.descriptions[Math.floor(Math.random() * 5)];
+    this.setState({
+      currentDescription: this.descriptions[Math.floor(Math.random() * 5)],
+    });
   }
 
   handleTitleChange = (event) => {
@@ -142,7 +145,7 @@ class NewNote extends Component {
             </span>
             .
           </p> */}
-          {this.currentDescription}
+          {this.state.currentDescription}
           <div className="card-content new-note-card-content">
             <form onSubmit={this.handleSubmit}>
               <div className="input-field">

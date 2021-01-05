@@ -14,7 +14,7 @@ const M = require("materialize-css");
 
 const App = () => {
   useEffect(() => {
-    M.AutoInit();
+    // M.Sidenav.init();
   }, []);
 
   return (
