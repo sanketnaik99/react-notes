@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Demo from "./Pages/Demo/Demo";
