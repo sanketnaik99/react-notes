@@ -10,12 +10,12 @@ import {
   SIGNUP_PAGE_ROUTE,
 } from "./routes";
 
-const M = require("materialize-css");
+// const M = require("materialize-css");
 
-const App = () => {
-  useEffect(() => {
-    // M.Sidenav.init();
-  }, []);
+// const App = () => {
+//   useEffect(() => {
+//     // M.Sidenav.init();
+//   }, []);
 
   return (
     <div className="App">
