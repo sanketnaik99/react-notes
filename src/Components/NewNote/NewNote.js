@@ -135,9 +135,13 @@ class NewNote extends Component {
   render() {
     return (
       <div className="container">
-        <div className="card new-note-card">
-          <span className="card-title new-note-card-title">Add New Note</span>
-          {/* <p className="new-note-description">
+        <div className="row">
+          <div className="col s12">
+            <div className="card new-note-card">
+              <span className="card-title new-note-card-title">
+                Add New Note
+              </span>
+              {/* <p className="new-note-description">
             Go ahead and write down your thoughts. This way you won't forget
             that{" "}
             <span className="new-note-description-bold">
@@ -145,62 +149,64 @@ class NewNote extends Component {
             </span>
             .
           </p> */}
-          {this.state.currentDescription}
-          <div className="card-content new-note-card-content">
-            <form onSubmit={this.handleSubmit}>
-              <div className="input-field">
-                <input
-                  id="title"
-                  type="text"
-                  className={
-                    this.state.titleErrorStatus === "TITLE_INVALID"
-                      ? "invalid"
-                      : this.state.titleErrorStatus === "TITLE_VALID"
-                      ? "valid"
-                      : ""
-                  }
-                  value={this.state.title}
-                  onChange={this.handleTitleChange}
-                />
-                <label htmlFor="title">Title</label>
-                <span
-                  className="helper-text"
-                  data-success={this.state.titleSuccessText}
-                  data-error={this.state.titleErrorText}
-                ></span>
+              {this.state.currentDescription}
+              <div className="card-content new-note-card-content">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="input-field">
+                    <input
+                      id="title"
+                      type="text"
+                      className={
+                        this.state.titleErrorStatus === "TITLE_INVALID"
+                          ? "invalid"
+                          : this.state.titleErrorStatus === "TITLE_VALID"
+                          ? "valid"
+                          : ""
+                      }
+                      value={this.state.title}
+                      onChange={this.handleTitleChange}
+                    />
+                    <label htmlFor="title">Title</label>
+                    <span
+                      className="helper-text"
+                      data-success={this.state.titleSuccessText}
+                      data-error={this.state.titleErrorText}
+                    ></span>
+                  </div>
+                  <div className="input-field">
+                    <textarea
+                      id="content"
+                      className={[
+                        "materialize-textarea",
+                        this.state.contentErrorStatus === "CONTENT_INVALID"
+                          ? "invalid"
+                          : this.state.contentErrorStatus === "CONTENT_VALID"
+                          ? "valid"
+                          : "",
+                      ].join(" ")}
+                      value={this.state.content}
+                      onChange={this.handleTextAreaChange}
+                    ></textarea>
+                    <label htmlFor="content">Content</label>
+                    <span
+                      className="helper-text"
+                      data-error={this.state.contentErrorText ?? null}
+                      data-success={this.state.contentSuccessText ?? null}
+                    ></span>
+                  </div>
+                  <div className="row right-align">
+                    <button
+                      className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
+                      type="submit"
+                      name="action"
+                    >
+                      Done
+                      <i className="material-icons right">check</i>
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div className="input-field">
-                <textarea
-                  id="content"
-                  className={[
-                    "materialize-textarea",
-                    this.state.contentErrorStatus === "CONTENT_INVALID"
-                      ? "invalid"
-                      : this.state.contentErrorStatus === "CONTENT_VALID"
-                      ? "valid"
-                      : "",
-                  ].join(" ")}
-                  value={this.state.content}
-                  onChange={this.handleTextAreaChange}
-                ></textarea>
-                <label htmlFor="content">Content</label>
-                <span
-                  className="helper-text"
-                  data-error={this.state.contentErrorText ?? null}
-                  data-success={this.state.contentSuccessText ?? null}
-                ></span>
-              </div>
-              <div className="row right-align">
-                <button
-                  className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
-                  type="submit"
-                  name="action"
-                >
-                  Done
-                  <i className="material-icons right">check</i>
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

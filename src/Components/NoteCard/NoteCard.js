@@ -29,7 +29,7 @@ class NoteCard extends Component {
             </div>
             <div className="card-action">
               <a
-                className="waves-effect waves-light red btn-small modal-trigger"
+                className="waves-effect waves-light red darken-2 btn-small modal-trigger"
                 href={"#deleteNote" + this.props.note.id}
               >
                 <i className="material-icons left">delete</i>Delete

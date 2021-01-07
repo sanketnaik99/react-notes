@@ -106,7 +106,7 @@ export default class SignIn extends Component {
             </form>
           )}
         </Formik>
-        <div className="row center-align">
+        <div className="row center-align sign-in-or-row">
           <h5 className="sign-in-or">OR</h5>
         </div>
         <div className="row center-align google-login-row">

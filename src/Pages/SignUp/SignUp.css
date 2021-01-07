@@ -1,17 +1,17 @@
-.sign-in-container {
+.sign-up-container {
   margin-top: 20px;
 }
-.sign-in-title {
+.sign-up-title {
   /*font-size: 2em; */
   font-weight: 700;
   margin-bottom: 10px;
 }
-.sign-in-description {
+.sign-up-description {
   margin-top: 10px;
   font-weight: 500;
   font-size: 1.2em;
 }
-.sign-in-form-container {
+.sign-up-form-container {
   padding: 15px;
   padding-bottom: 0px;
 }
@@ -36,11 +36,11 @@
 .input-field .prefix.active {
   color: #3949ab;
 }
-.sign-in-or-row {
+.sign-up-or-row {
   padding: 0px;
   margin: 0px;
 }
-.sign-in-or {
+.sign-up-or {
   font-size: 18px;
   margin: 20px;
   color: #666666;
