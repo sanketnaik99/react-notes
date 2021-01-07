@@ -16,7 +16,7 @@ class Demo extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    notes: state.notes.notes,
+    notes: state.demo.notes,
   };
 };
 

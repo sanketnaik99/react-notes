@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteNote } from "../../store/actions/notesActions";
+import { deleteDemoNote } from "../../store/actions/demoNotesActions";
 import "./NoteCard.css";
 
 const M = require("materialize-css");
@@ -65,7 +65,7 @@ class NoteCard extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteNote: (id) => dispatch(deleteNote(id)),
+    deleteNote: (id) => dispatch(deleteDemoNote(id)),
   };
 };
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addNote } from "../../store/actions/notesActions";
+import { addDemoNote } from "../../store/actions/demoNotesActions";
 import "./NewNote.css";
 
 class NewNote extends Component {
@@ -216,7 +216,7 @@ class NewNote extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNote: (note) => dispatch(addNote(note)),
+    addNote: (note) => dispatch(addDemoNote(note)),
   };
 };
 

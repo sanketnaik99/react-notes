@@ -3,20 +3,71 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { combineReducers, createStore } from "redux";
-import notesReducer from "./store/reducers/notesReducer";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import demoReducer from "./store/reducers/demoNotesReducer";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import {
+  ReactReduxFirebaseProvider,
+  firebaseReducer,
+  getFirebase,
+} from "react-redux-firebase";
+import {
+  createFirestoreInstance,
+  firestoreReducer,
+  getFirestore,
+} from "redux-firestore";
+import thunk from "redux-thunk";
 
-const rootReducer = combineReducers({ notes: notesReducer });
+const rrfConfig = {
+  attachAuthIsReady: true,
+  userProfile: "users",
+  useFirestoreForProfile: true,
+};
 
-const store = createStore(rootReducer, composeWithDevTools());
+const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ6CxcKqXdy4jygL068xm7Q0HSz9msstU",
+  authDomain: "react-redux-c7b56.firebaseapp.com",
+  projectId: "react-redux-c7b56",
+  storageBucket: "react-redux-c7b56.appspot.com",
+  messagingSenderId: "948241043047",
+  appId: "1:948241043047:web:473e3e5cf561d5def40ec2",
+  measurementId: "G-ENY3GD61C7",
+};
+
+firebase.initializeApp(firebaseConfig);
+firebase.firestore();
+
+const rootReducer = combineReducers({
+  demo: demoReducer,
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
+});
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
+);
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+};
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
