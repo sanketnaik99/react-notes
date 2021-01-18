@@ -33,13 +33,13 @@ const rrfConfig = {
 const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJ6CxcKqXdy4jygL068xm7Q0HSz9msstU",
-  authDomain: "react-redux-c7b56.firebaseapp.com",
-  projectId: "react-redux-c7b56",
-  storageBucket: "react-redux-c7b56.appspot.com",
-  messagingSenderId: "948241043047",
-  appId: "1:948241043047:web:473e3e5cf561d5def40ec2",
-  measurementId: "G-ENY3GD61C7",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
