@@ -3,8 +3,11 @@ import React, { Component } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import "./SignIn.css";
 import * as Yup from "yup";
+import { connect } from "react-redux";
+import { signInUser } from "../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   // Sign In Page Component
   //
   // This page deals with the user Sign in process. It uses formik to handle form input and validation.
@@ -13,6 +16,7 @@ export default class SignIn extends Component {
 
   handleSubmit = (data) => {
     console.log(data);
+    this.props.signIn(data);
     console.log("Form Submitted");
   };
 
@@ -21,6 +25,10 @@ export default class SignIn extends Component {
   };
 
   render() {
+    const { auth } = this.props;
+    if (auth.uid) {
+      return <Redirect to="/notes" />;
+    }
     return (
       <div className="container sign-in-container">
         <h1 className="sign-in-title center-align">Sign In.</h1>
@@ -92,6 +100,12 @@ export default class SignIn extends Component {
                   data-error={errors.password}
                 ></span>
               </div>
+              {/* Sign In Error Message */}
+              <div className="row center-align">
+                {this.props.signInError ? (
+                  <p className="red-text">{this.props.signInError.message}</p>
+                ) : null}
+              </div>
               {/* Sign In Button */}
               <div className="row center-align">
                 <button
@@ -121,3 +135,18 @@ export default class SignIn extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (data) => dispatch(signInUser(data)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    signInError: state.auth.signInError,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -1,21 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
-import { NavLink, useRouteMatch } from "react-router-dom";
-import {
-  DEMO_PAGE_ROUTE,
-  SIGNIN_PAGE_ROUTE,
-  SIGNUP_PAGE_ROUTE,
-} from "../../routes";
 import "./Navbar.css";
 import logo from "../../notes-logo.png";
+import { connect } from "react-redux";
+import SignedInDesktopLinks from "./SignedInLinks/SignedInDesktopLinks";
+import SignedOutDesktopLinks from "./SignedOutLinks/SignedOutDesktopLinks";
+import SignedInMobileLinks from "./SignedInLinks/SignedInMobileLinks";
+import SignedOutMobileLinks from "./SignedOutLinks/SignedOutMobileLinks";
+import { logoutUser } from "../../store/actions/authActions";
 
 const M = require("materialize-css");
 
-const Navbar = () => {
+const Navbar = (props) => {
   useEffect(() => {
     var elems = document.querySelectorAll(".sidenav");
     M.Sidenav.init(elems);
   });
+
+  const desktopLinks = props.auth.uid ? (
+    <SignedInDesktopLinks profile={props.profile} logout={props.logout} />
+  ) : (
+    <SignedOutDesktopLinks />
+  );
+
+  const mobileLinks = props.auth.uid ? (
+    <SignedInMobileLinks profile={props.profile} logout={props.logout} />
+  ) : (
+    <SignedOutMobileLinks />
+  );
 
   return (
     <div>
@@ -36,39 +48,28 @@ const Navbar = () => {
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
-          <ul className="right hide-on-med-and-down">
-            <li className={useRouteMatch(DEMO_PAGE_ROUTE) ? "active" : ""}>
-              <NavLink to={DEMO_PAGE_ROUTE}>Demo</NavLink>
-            </li>
-            <li className={useRouteMatch(SIGNIN_PAGE_ROUTE) ? "active" : ""}>
-              <NavLink to={SIGNIN_PAGE_ROUTE}>Sign In</NavLink>
-            </li>
-            <li className={useRouteMatch(SIGNUP_PAGE_ROUTE) ? "active" : ""}>
-              <NavLink to={SIGNUP_PAGE_ROUTE}>Sign Up</NavLink>
-            </li>
-          </ul>
+          <ul className="right hide-on-med-and-down">{desktopLinks}</ul>
         </div>
       </nav>
 
       <ul className="sidenav" id="mobile-demo">
-        <li>
-          <NavLink to={DEMO_PAGE_ROUTE} activeClassName="active">
-            Demo
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={SIGNIN_PAGE_ROUTE} activeClassName="active">
-            Sign In
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={SIGNUP_PAGE_ROUTE} activeClassName="active">
-            Sign Up
-          </NavLink>
-        </li>
+        {mobileLinks}
       </ul>
     </div>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logoutUser()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

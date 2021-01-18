@@ -46,9 +46,9 @@ class NoteCard extends Component {
             </p>
           </div>
           <div className="modal-footer">
-            <a className="modal-close waves-effect waves-green btn-flat note-card-modal-button">
+            <div className="modal-close waves-effect waves-green btn-flat note-card-modal-button">
               No
-            </a>
+            </div>
             <a
               className="modal-close waves-effect red-text waves-red btn-flat note-card-modal-button"
               onClick={this.deleteCurrentNote}

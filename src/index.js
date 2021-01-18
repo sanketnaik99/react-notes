@@ -22,6 +22,7 @@ import {
   getFirestore,
 } from "redux-firestore";
 import thunk from "redux-thunk";
+import authReducer from "./store/reducers/authReducer";
 
 const rrfConfig = {
   attachAuthIsReady: true,
@@ -46,6 +47,7 @@ firebase.firestore();
 
 const rootReducer = combineReducers({
   demo: demoReducer,
+  auth: authReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });

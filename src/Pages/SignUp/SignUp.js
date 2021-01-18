@@ -3,8 +3,11 @@ import React, { Component } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import "./SignUp.css";
 import * as Yup from "yup";
+import { signUpUser } from "../../store/actions/authActions";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   // Sign Up Page Component
   //
   // This page deals with the user Sign Up process. It uses formik to handle form input and validation.
@@ -14,6 +17,7 @@ export default class SignUp extends Component {
   handleSubmit = (data) => {
     console.log(data);
     console.log("Form Submitted");
+    this.props.signUp(data);
   };
 
   googleLogin = () => {
@@ -21,6 +25,10 @@ export default class SignUp extends Component {
   };
 
   render() {
+    const { auth } = this.props;
+    if (auth.uid) {
+      return <Redirect to="/notes" />;
+    }
     return (
       <div className="container sign-up-container">
         <h1 className="sign-up-title center-align">Sign Up.</h1>
@@ -28,10 +36,10 @@ export default class SignUp extends Component {
           Enter your login details below to sign up.
         </p>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ name: "", email: "", password: "" }}
           validationSchema={Yup.object({
             name: Yup.string()
-              .min(3, "Please Enter a valid name.")
+              .min(5, "Please enter your full name.")
               .required("Your name is required"),
             email: Yup.string()
               .email("The email address that you have entered is invalid.")
@@ -69,7 +77,7 @@ export default class SignUp extends Component {
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Full Name (Example: John Doe)</label>
                 <span className="helper-text" data-error={errors.name}></span>
               </div>
               {/* Email Input Field */}
@@ -115,6 +123,12 @@ export default class SignUp extends Component {
                   data-error={errors.password}
                 ></span>
               </div>
+              {/* Auth Error */}
+              <div className="row center-align">
+                {this.props.authError ? (
+                  <p className="red-text">{this.props.authError.message}</p>
+                ) : null}
+              </div>
               {/* Sign Up Button */}
               <div className="row center-align">
                 <button
@@ -144,3 +158,18 @@ export default class SignUp extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (newUser) => dispatch(signUpUser(newUser)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
