@@ -9,7 +9,11 @@ const SignedInMobileLinks = ({ profile, logout }) => {
     <div>
       <li>
         <a className="waves-effect user-icon-text">
-          {profile.name ? profile.name : ""}
+          {profile.name
+            ? profile.name
+            : profile.displayName
+            ? profile.displayName
+            : ""}
         </a>
       </li>
       <li>

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import "./SignUp.css";
 import * as Yup from "yup";
-import { signUpUser } from "../../store/actions/authActions";
+import { googleSignIn, signUpUser } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -22,6 +22,7 @@ class SignUp extends Component {
 
   googleLogin = () => {
     console.log("Google Login Clicked");
+    this.props.googleSignIn();
   };
 
   render() {
@@ -129,31 +130,47 @@ class SignUp extends Component {
                   <p className="red-text">{this.props.authError.message}</p>
                 ) : null}
               </div>
-              {/* Sign Up Button */}
+              {/* Google Auth Error */}
               <div className="row center-align">
-                <button
-                  className="btn btn-large z-depth-2 waves-effect indigo darken-1 waves-light"
-                  type="submit"
-                  name="action"
-                >
-                  Sign Up
-                  <i className="material-icons right">person_add</i>
-                </button>
+                {this.props.googleAuthError ? (
+                  <p className="red-text">
+                    {this.props.googleAuthError.message}
+                  </p>
+                ) : null}
               </div>
+              {/* Sign Up Button */}
+              {this.props.authLoading ? null : (
+                <div className="row center-align">
+                  <button
+                    className="btn btn-large z-depth-2 waves-effect indigo darken-1 waves-light"
+                    type="submit"
+                    name="action"
+                  >
+                    Sign Up
+                    <i className="material-icons right">person_add</i>
+                  </button>
+                </div>
+              )}
             </form>
           )}
         </Formik>
-        <div className="row center-align sign-up-or-row">
-          <h5 className="sign-up-or">OR</h5>
-        </div>
-        <div className="row center-align google-login-row">
-          <GoogleLoginButton
-            align="center"
-            style={{ background: "#3949ab" }}
-            activeStyle={{ background: "#283593" }}
-            onClick={this.googleLogin}
-          />
-        </div>
+        {this.props.authLoading ? (
+          <div className="loader">Loading...</div>
+        ) : (
+          <span>
+            <div className="row center-align sign-up-or-row">
+              <h5 className="sign-up-or">OR</h5>
+            </div>
+            <div className="row center-align google-login-row">
+              <GoogleLoginButton
+                align="center"
+                style={{ background: "#3949ab" }}
+                activeStyle={{ background: "#283593" }}
+                onClick={this.googleLogin}
+              />
+            </div>
+          </span>
+        )}
       </div>
     );
   }
@@ -162,13 +179,16 @@ class SignUp extends Component {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
+    authLoading: state.auth.authLoading,
     auth: state.firebase.auth,
+    googleAuthError: state.auth.googleAuthError,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     signUp: (newUser) => dispatch(signUpUser(newUser)),
+    googleSignIn: () => dispatch(googleSignIn()),
   };
 };
 

@@ -34,8 +34,8 @@ class NewNote extends Component {
     </p>,
     <p className="new-note-description">
       Here's some text for you to copy and paste into the fields below. <br />{" "}
-      Hello World! (obviously) <br /> Lorem ipsum dolor sit amet consectetur
-      adipisicing elit.
+      Title: Hello World! (obviously) <br />
+      Content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
     </p>,
   ];
 

@@ -5,14 +5,24 @@ import { NOTES_ROUTE } from "../../../routes";
 import "./SignedInLinks.css";
 
 const SignedInDesktopLinks = ({ profile, logout }) => {
+  let initial = "";
+  if (profile.initial) {
+    initial = profile.initial.toUpperCase();
+  } else if (profile.displayName) {
+    initial = profile.displayName
+      .split(" ")
+      .map((item) => item[0])
+      .join("")
+      .toUpperCase();
+  }
   return (
     <div>
       <li>
         <NavLink
           to={NOTES_ROUTE}
-          className="btn btn-floating lime accent-3 black-text user-icon-text"
+          className="btn btn-floating red accent-3 white-text user-icon-text"
         >
-          {profile.initial ? profile.initial.toUpperCase() : ""}
+          {initial}
         </NavLink>
       </li>
       <li className={useRouteMatch(NOTES_ROUTE) ? "active" : ""}>

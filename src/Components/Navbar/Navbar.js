@@ -8,6 +8,8 @@ import SignedOutDesktopLinks from "./SignedOutLinks/SignedOutDesktopLinks";
 import SignedInMobileLinks from "./SignedInLinks/SignedInMobileLinks";
 import SignedOutMobileLinks from "./SignedOutLinks/SignedOutMobileLinks";
 import { logoutUser } from "../../store/actions/authActions";
+import { Link } from "react-router-dom";
+import { DEMO_PAGE_ROUTE } from "../../routes";
 
 const M = require("materialize-css");
 
@@ -33,7 +35,7 @@ const Navbar = (props) => {
     <div>
       <nav>
         <div className="nav-wrapper indigo darken-1">
-          <div className="brand-logo center">
+          <Link to={DEMO_PAGE_ROUTE} className="brand-logo center">
             <img
               src={logo}
               alt="Notes Logo"
@@ -44,7 +46,7 @@ const Navbar = (props) => {
               alt="Notes Logo"
               className="navbar-notes-logo-small show-on-small hide-on-med-and-up"
             />
-          </div>
+          </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
