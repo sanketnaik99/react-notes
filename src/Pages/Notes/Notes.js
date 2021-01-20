@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import NewNote from "../../Components/NewNote/NewNote";
+import { addUserNote } from "../../store/actions/userNotesActions";
 
 class Notes extends Component {
   render() {
@@ -8,7 +10,11 @@ class Notes extends Component {
     if (!auth.uid) {
       return <Redirect to="/demo" />;
     }
-    return <div>NOTES PAGE</div>;
+    return (
+      <div>
+        <NewNote addNote={(note) => this.props.addNote(note)} />
+      </div>
+    );
   }
 }
 
@@ -18,4 +24,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Notes);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNote: (note) => dispatch(addUserNote(note)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notes);

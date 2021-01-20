@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import NewNote from "../../Components/NewNote/NewNote";
 import NotesList from "../../Components/NotesList/NotesList";
 import { NOTES_ROUTE } from "../../routes";
+import { addDemoNote } from "../../store/actions/demoNotesActions";
 
 class Demo extends Component {
   render() {
@@ -13,7 +14,7 @@ class Demo extends Component {
     }
     return (
       <div>
-        <NewNote />
+        <NewNote addNote={(data) => this.props.addNote(data)} />
         <NotesList notes={this.props.notes} />
       </div>
     );
@@ -27,4 +28,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Demo);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNote: (note) => dispatch(addDemoNote(note)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Demo);

@@ -20,9 +20,11 @@ import {
   createFirestoreInstance,
   firestoreReducer,
   getFirestore,
+  reduxFirestore,
 } from "redux-firestore";
 import thunk from "redux-thunk";
 import authReducer from "./store/reducers/authReducer";
+import userNotesReducer from "./store/reducers/userNotesReducer";
 
 const rrfConfig = {
   attachAuthIsReady: true,
@@ -48,13 +50,14 @@ firebase.firestore();
 const rootReducer = combineReducers({
   demo: demoReducer,
   auth: authReducer,
+  userNotes: userNotesReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(...middlewares))
+  composeWithDevTools(applyMiddleware(...middlewares), reduxFirestore(firebase))
 );
 
 const rrfProps = {

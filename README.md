@@ -5,7 +5,23 @@ This project was built using the following technologies -
 - ReactJS
 - Materializecss
 - Redux
--
+- Firebase Authentication
+- Firebase Firestore
+
+## Project Structure
+
+The website follows a simple structure where any user can view a demo page where they can add new notes which get stored temporarily in the local app state. These notes get deleted when the user reloads the page. Alternatively, a user can sign up using email and password authentication or login using their Google account and can add notes which get saved in the cloud firestore database. A user can only view their own notes and no other user can view the notes created by other users.
+
+The pages visible to unauthenticated and authenticated users are as follows.
+
+- Unauthenticated User
+  - Demo Page
+  - Sign In Page
+  - Sign Up Page
+- Authenticated User
+  - Notes Page
+
+## Demo Page
 
 ## Available Scripts
 

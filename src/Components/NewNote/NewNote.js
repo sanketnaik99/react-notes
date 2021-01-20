@@ -1,20 +1,10 @@
+import { Formik } from "formik";
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addDemoNote } from "../../store/actions/demoNotesActions";
 import "./NewNote.css";
+import * as Yup from "yup";
 
 class NewNote extends Component {
-  state = {
-    title: "",
-    content: "",
-    titleErrorStatus: null,
-    contentErrorStatus: null,
-    titleErrorText: null,
-    contentErrorText: null,
-    titleSuccessText: null,
-    contentSuccessText: null,
-    currentDescription: null,
-  };
+  state = {};
 
   descriptions = [
     <p className="new-note-description">
@@ -45,91 +35,10 @@ class NewNote extends Component {
     });
   }
 
-  handleTitleChange = (event) => {
-    this.setState({
-      ...this.state,
-      [event.target.id]: event.target.value,
-    });
-  };
-
-  handleTextAreaChange = (event) => {
-    this.setState({
-      ...this.state,
-      [event.target.id]: event.target.value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    this.setState({
-      ...this.state,
-      titleErrorStatus: "TITLE_INVALID",
-      titleErrorText: "The title that you have entered is not long enough",
-    });
-    const isValid = this.validate();
-    console.log(this.state);
-    console.log(isValid);
-    if (isValid) {
-      this.props.addNote({
-        title: this.state.title,
-        content: this.state.content,
-      });
-      this.setState({
-        title: "",
-        content: "",
-        titleErrorStatus: null,
-        contentErrorStatus: null,
-        titleErrorText: null,
-        contentErrorText: null,
-        titleSuccessText: null,
-        contentSuccessText: null,
-      });
-    }
-  };
-
-  validate = () => {
-    let titleErrorStatus = "";
-    let contentErrorStatus = "";
-    let titleErrorText = "";
-    let contentErrorText = "";
-    let titleSuccessText = "";
-    let contentSuccessText = "";
-
-    if (this.state.title.length < 3) {
-      titleErrorStatus = "TITLE_INVALID";
-      titleErrorText = "Please enter a valid title.";
-    } else {
-      titleErrorStatus = "TITLE_VALID";
-      titleSuccessText = "Looks Good.";
-    }
-
-    if (this.state.content.length < 20) {
-      contentErrorStatus = "CONTENT_INVALID";
-      contentErrorText = "Please enter valid content.";
-    } else {
-      contentErrorStatus = "CONTENT_VALID";
-      contentSuccessText = "Looks Good.";
-    }
-
-    this.setState({
-      ...this.state,
-      titleErrorStatus,
-      contentErrorStatus,
-      titleErrorText,
-      contentErrorText,
-      titleSuccessText,
-      contentSuccessText,
-    });
-
-    if (
-      titleErrorStatus === "TITLE_INVALID" ||
-      contentErrorStatus === "CONTENT_INVALID"
-    ) {
-      return false;
-    } else {
-      return true;
-    }
+  handleSubmit = (data, { resetForm }) => {
+    console.log(data);
+    this.props.addNote(data);
+    resetForm({ values: "" });
   };
 
   render() {
@@ -141,70 +50,84 @@ class NewNote extends Component {
               <span className="card-title new-note-card-title">
                 Add New Note
               </span>
-              {/* <p className="new-note-description">
-            Go ahead and write down your thoughts. This way you won't forget
-            that{" "}
-            <span className="new-note-description-bold">
-              "Million Dollar Idea"
-            </span>
-            .
-          </p> */}
               {this.state.currentDescription}
               <div className="card-content new-note-card-content">
-                <form onSubmit={this.handleSubmit}>
-                  <div className="input-field">
-                    <input
-                      id="title"
-                      type="text"
-                      className={
-                        this.state.titleErrorStatus === "TITLE_INVALID"
-                          ? "invalid"
-                          : this.state.titleErrorStatus === "TITLE_VALID"
-                          ? "valid"
-                          : ""
-                      }
-                      value={this.state.title}
-                      onChange={this.handleTitleChange}
-                    />
-                    <label htmlFor="title">Title</label>
-                    <span
-                      className="helper-text"
-                      data-success={this.state.titleSuccessText}
-                      data-error={this.state.titleErrorText}
-                    ></span>
-                  </div>
-                  <div className="input-field">
-                    <textarea
-                      id="content"
-                      className={[
-                        "materialize-textarea",
-                        this.state.contentErrorStatus === "CONTENT_INVALID"
-                          ? "invalid"
-                          : this.state.contentErrorStatus === "CONTENT_VALID"
-                          ? "valid"
-                          : "",
-                      ].join(" ")}
-                      value={this.state.content}
-                      onChange={this.handleTextAreaChange}
-                    ></textarea>
-                    <label htmlFor="content">Content</label>
-                    <span
-                      className="helper-text"
-                      data-error={this.state.contentErrorText ?? null}
-                      data-success={this.state.contentSuccessText ?? null}
-                    ></span>
-                  </div>
-                  <div className="row right-align">
-                    <button
-                      className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
-                      type="submit"
-                      name="action"
-                    >
-                      Done
-                      <i className="material-icons right">check</i>
-                    </button>
-                  </div>
-                </form>
+                <Formik
+                  initialValues={{ title: "", content: "" }}
+                  validationSchema={Yup.object({
+                    title: Yup.string()
+                      .min(3, "Please enter a valid title.")
+                      .required("A title for the note is required."),
+                    content: Yup.string()
+                      .min(20, "Please enter some valid content.")
+                      .required("Some Content for the note is required."),
+                  })}
+                  onSubmit={this.handleSubmit}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <div className="input-field">
+                        <input
+                          id="title"
+                          type="text"
+                          className={
+                            errors.title && touched.title
+                              ? "invalid"
+                              : touched.title && !errors.title
+                              ? "valid"
+                              : ""
+                          }
+                          value={values.title}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                        />
+                        <label htmlFor="title">Title</label>
+                        <span
+                          className="helper-text"
+                          data-error={errors.title}
+                        ></span>
+                      </div>
+                      <div className="input-field">
+                        <textarea
+                          id="content"
+                          className={[
+                            "materialize-textarea",
+                            errors.content && touched.content
+                              ? "invalid"
+                              : touched.content && !errors.content
+                              ? "valid"
+                              : "",
+                          ].join(" ")}
+                          value={values.content}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                        ></textarea>
+                        <label htmlFor="content">Content</label>
+                        <span
+                          className="helper-text"
+                          data-error={errors.content}
+                        ></span>
+                      </div>
+                      <div className="row right-align">
+                        <button
+                          className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
+                          type="submit"
+                          name="action"
+                        >
+                          Done
+                          <i className="material-icons right">check</i>
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>
@@ -214,10 +137,4 @@ class NewNote extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNote: (note) => dispatch(addDemoNote(note)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(NewNote);
+export default NewNote;
