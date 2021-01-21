@@ -1,8 +1,8 @@
-![Website](https://img.shields.io/website?logo=React&style=for-the-badge&url=https%3A%2F%2Fnotes.sanketnaik.dev) &nbsp;&nbsp; [![Netlify Status](https://api.netlify.com/api/v1/badges/6c0df32f-9c60-40f9-a265-5e151fb8536d/deploy-status)](https://app.netlify.com/sites/serene-carson-4b82d1/deploys)
+![Notes](docs/banner.png)
 
 # React Notes
 
-![Notes](docs/banner.png)
+![Website](https://img.shields.io/website?logo=React&style=for-the-badge&url=https%3A%2F%2Fnotes.sanketnaik.dev) &nbsp;&nbsp; [![Netlify Status](https://api.netlify.com/api/v1/badges/6c0df32f-9c60-40f9-a265-5e151fb8536d/deploy-status)](https://app.netlify.com/sites/serene-carson-4b82d1/deploys)
 
 This project was built using the following technologies -
 
@@ -22,27 +22,37 @@ The pages visible to unauthenticated and authenticated users are as follows.
   - [Project Structure](#project-structure)
   - [Unauthenticated User](#unauthenticated-user)
   - [Demo Page](#demo-page)
+    - [Add Note](#add-note)
   - [Sign In Page](#sign-in-page)
     - [Email and Password Sign In](#email-and-password-sign-in)
     - [Google Sign In](#google-sign-in)
   - [Sign Up Page](#sign-up-page)
     - [Email and Password Sign Up](#email-and-password-sign-up)
   - [Authenticated User](#authenticated-user)
-  - [Notes Page](#notes-page)
+  - [User Notes Page](#user-notes-page)
+    - [Add Note](#add-note-1)
 
 ## Unauthenticated User
 
 ## Demo Page
 
-This page is displayed when an unauthenticated user opens the application. Here, the user can access the notes system but the notes that are added will not be stored anywhere. An initial note is also displayed to the user as an example. If the user refreshes the page, the notes will be deleted and only the initial note will remain.
+![Demo Page](docs/demo-page.png)
+
+This page is displayed when an **unauthenticated** user opens the application. Here, the user can access the notes system but the notes that are added will not be stored anywhere. An initial note is also displayed to the user as an example. If the user refreshes the page, the notes will be deleted and only the initial note will remain.
+
+### Add Note
+
+The first card on the Demo Page is the **'Add New Note'** Card. This allows the user to add new notes to the list of notes. This note is stored in the state of the application which is handled using **Redux**. Because of this, the data is lost if the user leaves the page or refreshes it.
 
 ## Sign In Page
+
+![Sign In Page](docs/sign-in-page.png)
 
 This page allows the user to sign in to the application. The user can either decide to sign in using their email and password or choose to sign in with Google.
 
 ### Email and Password Sign In
 
-If the user chooses to sign in with their email and password, their email and password inputs are validated using Firebase Authentication. If the email and password are correct, the user is redirected to the user Notes page and their existing notes are fetched from the Cloud Firestore Database.
+If the user chooses to sign in with their email and password, their `email` and `password` inputs are validated using Firebase Authentication. If the email and password are correct, the user is redirected to the user Notes page and their existing notes are fetched from the Cloud Firestore Database.
 
 If the user does not have an account or enters the wrong email or password, an error message is displayed.
 
@@ -54,14 +64,22 @@ Note: Even if a user does not have an existing ID, a new entry is created in the
 
 ## Sign Up Page
 
+![Sign Up Page](docs/sign-up-page.png)
+
 This page allows the user to sign up for the application. The user can use the Email and Password to sign up or they can directly log in using the Google Sign In option.
 
 ### Email and Password Sign Up
 
-If the user chooses to sign up using their email and password, they will be asked to enter their Full Name, Email ID and their password. This information will be used to create an account and to obtain other details like initials.
+If the user chooses to sign up using their email and password, they will be asked to enter their `full-name`, `email` and `password`. This information will be used to create an account and to obtain other details like initials.
 
 ## Authenticated User
 
-## Notes Page
+## User Notes Page
 
-The notes page will allow an authenticated user to view their saved notes. This page fetches the notes from Cloud Firestore and displays it to the user. If the user hasn't added any notes, a 'Your Notes List is Empty' message to the user. Additionally, the user can delete a note and it will be deleted from the database as well.
+![User Notes Page](docs/notes-page.png)
+
+The notes page will allow an authenticated user to view their saved notes and add new ones. This page fetches the notes from Cloud Firestore and displays it to the user in a neat list of cards. If the user hasn't added any notes, a **'Your Notes List is Empty'** message to the user. Additionally, the user can delete a note and it will be deleted from the database as well.
+
+### Add Note
+
+The first card on the User notes Page is the **'Add New Note'** Card. This allows the user to add new notes to their existing list of notes. The data entered in the title and content fields is stored as a new entry in the Cloud Firestore database.
