@@ -42,11 +42,9 @@ export const signUpUser = ({ name, email, password }) => {
         }
       )
       .then((res) => {
-        // console.log(res);
         dispatch({ type: SIGN_UP_SUCCESS });
       })
       .catch((err) => {
-        // console.log(err);
         dispatch({ type: SIGN_UP_ERROR, error: err });
       });
   };
@@ -64,11 +62,9 @@ export const signInUser = ({ email, password }) => {
     firebase
       .login({ email, password })
       .then((res) => {
-        console.log(res);
         dispatch({ type: SIGN_IN_SUCCESS });
       })
       .catch((err) => {
-        console.log(err);
         dispatch({ type: SIGN_IN_ERROR, error: err });
       });
   };
@@ -84,12 +80,10 @@ export const googleSignIn = () => {
     firebase
       .login({ provider: "google", type: "popup" })
       .then((res) => {
-        console.log(res);
         dispatch({ type: GOOGLE_SUCCESS });
       })
       .catch((err) => {
         dispatch({ type: GOOGLE_ERROR, error: err });
-        console.log(err);
       });
   };
 };

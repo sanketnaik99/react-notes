@@ -37,7 +37,6 @@ class NewNote extends Component {
   }
 
   handleSubmit = (data, { resetForm }) => {
-    console.log(data);
     this.props.addNote(data);
     resetForm({ values: "" });
   };

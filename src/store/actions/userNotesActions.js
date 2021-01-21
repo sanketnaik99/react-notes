@@ -44,18 +44,13 @@ export const getUserNotes = (uid) => {
 };
 
 export const deleteUserNote = (noteID) => {
-  console.log(noteID);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const state = getState();
     const uid = state.firebase.auth.uid;
     const firestore = getFirestore();
     firestore
       .delete({ collection: `users/${uid}/notes`, doc: noteID })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   };
 };

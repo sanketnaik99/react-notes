@@ -39,7 +39,11 @@ class Notes extends Component {
         />
       ) : (
         <div className="row center-align">
-          <img src={nothingFound} alt="No Notes Found" />
+          <img
+            src={nothingFound}
+            alt="No Notes Found"
+            className="nothing-found-image"
+          />
           <h4 className="nothing-found-title">Your Notes List is Empty</h4>
           <p className="nothing-found-description">
             Looks like you don't have any notes. Fill the form above to add new
@@ -69,7 +73,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     isLoading: state.userNotes.loadingGetNotes,
-    notes: state.firestore.ordered[Object.keys(state.firestore.ordered)[0]],
+    notes: state.firestore.ordered[`users/${state.firebase.auth.uid}/notes`],
   };
 };
 

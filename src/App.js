@@ -25,7 +25,7 @@ const AuthIsLoaded = ({ children }) => {
         style={{ height: "100vh" }}
       >
         <div className="row center-align">
-          <img src={logo} alt="Notes" />
+          <img src={logo} alt="Notes" className="notes-splash-image" />
         </div>
       </div>
     );

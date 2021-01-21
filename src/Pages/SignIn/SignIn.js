@@ -16,13 +16,10 @@ class SignIn extends Component {
   state = {};
 
   handleSubmit = (data) => {
-    console.log(data);
     this.props.signIn(data);
-    console.log("Form Submitted");
   };
 
   googleLogin = () => {
-    console.log("Google Login Clicked");
     this.props.googleSignIn();
   };
 
