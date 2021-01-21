@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { deleteDemoNote } from "../../store/actions/demoNotesActions";
 import "./NoteCard.css";
 
 const M = require("materialize-css");
@@ -41,7 +39,7 @@ class NoteCard extends Component {
           <div className="modal-content">
             <h4>Confirm</h4>
             <p>
-              Are you sure that you want to delete the follwing note -{" "}
+              Are you sure that you want to delete the following note -{" "}
               {this.props.note.title}?
             </p>
           </div>
@@ -63,10 +61,4 @@ class NoteCard extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteNote: (id) => dispatch(deleteDemoNote(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(NoteCard);
+export default NoteCard;

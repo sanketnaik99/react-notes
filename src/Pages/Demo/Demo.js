@@ -4,7 +4,10 @@ import { Redirect } from "react-router-dom";
 import NewNote from "../../Components/NewNote/NewNote";
 import NotesList from "../../Components/NotesList/NotesList";
 import { NOTES_ROUTE } from "../../routes";
-import { addDemoNote } from "../../store/actions/demoNotesActions";
+import {
+  addDemoNote,
+  deleteDemoNote,
+} from "../../store/actions/demoNotesActions";
 
 class Demo extends Component {
   render() {
@@ -15,7 +18,10 @@ class Demo extends Component {
     return (
       <div>
         <NewNote addNote={(data) => this.props.addNote(data)} />
-        <NotesList notes={this.props.notes} />
+        <NotesList
+          notes={this.props.notes}
+          deleteNote={this.props.deleteNote}
+        />
       </div>
     );
   }
@@ -31,6 +37,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addNote: (note) => dispatch(addDemoNote(note)),
+    deleteNote: (id) => dispatch(deleteDemoNote(id)),
   };
 };
 

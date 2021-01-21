@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import React, { Component } from "react";
 import "./NewNote.css";
 import * as Yup from "yup";
+import { connect } from "react-redux";
 
 class NewNote extends Component {
   state = {};
@@ -115,16 +116,33 @@ class NewNote extends Component {
                           data-error={errors.content}
                         ></span>
                       </div>
-                      <div className="row right-align">
-                        <button
-                          className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
-                          type="submit"
-                          name="action"
-                        >
-                          Done
-                          <i className="material-icons right">check</i>
-                        </button>
-                      </div>
+                      {/* Add Notes Error */}
+                      {this.props.addNotesError ? (
+                        <div className="row center-align">
+                          <p className="red-text">
+                            {this.props.addNotesError.name +
+                              ": " +
+                              this.props.addNotesError.code}
+                          </p>
+                        </div>
+                      ) : null}
+                      {/* Add Notes Loading */}
+                      {this.props.isLoading ? (
+                        <div className="row right-align">
+                          <div className="loader"></div>
+                        </div>
+                      ) : (
+                        <div className="row right-align">
+                          <button
+                            className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
+                            type="submit"
+                            name="action"
+                          >
+                            Done
+                            <i className="material-icons right">check</i>
+                          </button>
+                        </div>
+                      )}
                     </form>
                   )}
                 </Formik>
@@ -137,4 +155,11 @@ class NewNote extends Component {
   }
 }
 
-export default NewNote;
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.userNotes.addNotesLoading,
+    addNotesError: state.userNotes.addNotesError,
+  };
+};
+
+export default connect(mapStateToProps)(NewNote);

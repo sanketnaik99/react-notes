@@ -100,6 +100,13 @@ export const googleSignIn = () => {
 export const logoutUser = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const state = getState();
+    const uid = state.firebase.auth.uid;
+    const firestore = getFirestore();
+    firestore.unsetListener({
+      collection: `users/${uid}/notes`,
+      orderBy: ["createdAt"],
+    });
     firebase
       .logout()
       .then((res) => {

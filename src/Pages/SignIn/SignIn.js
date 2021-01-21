@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import { googleSignIn, signInUser } from "../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
+import { NOTES_ROUTE } from "../../routes";
 
 class SignIn extends Component {
   // Sign In Page Component
@@ -28,7 +29,7 @@ class SignIn extends Component {
   render() {
     const { auth } = this.props;
     if (auth.uid) {
-      return <Redirect to="/notes" />;
+      return <Redirect to={NOTES_ROUTE} />;
     }
     return (
       <div className="container sign-in-container">
