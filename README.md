@@ -25,16 +25,16 @@ The website follows a simple structure where any user can view a demo page where
 The pages visible to unauthenticated and authenticated users are as follows.
 
 - [Unauthenticated User](#unauthenticated-user)
-- [Demo Page](#demo-page)
-  - [Add Note](#add-note)
-- [Sign In Page](#sign-in-page)
-  - [Email and Password Sign In](#email-and-password-sign-in)
-  - [Google Sign In](#google-sign-in)
-- [Sign Up Page](#sign-up-page)
-  - [Email and Password Sign Up](#email-and-password-sign-up)
+  - [Demo Page](#demo-page)
+    - [Add Note](#add-note)
+  - [Sign In Page](#sign-in-page)
+    - [Email and Password Sign In](#email-and-password-sign-in)
+    - [Google Sign In](#google-sign-in)
+  - [Sign Up Page](#sign-up-page)
+    - [Email and Password Sign Up](#email-and-password-sign-up)
 - [Authenticated User](#authenticated-user)
-- [User Notes Page](#user-notes-page)
-  - [Add Note](#add-note-1)
+  - [User Notes Page](#user-notes-page)
+    - [Add Note](#add-note-1)
 
 ## Unauthenticated User
 
