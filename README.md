@@ -4,13 +4,19 @@
 
 ![Website](https://img.shields.io/website?logo=React&style=for-the-badge&url=https%3A%2F%2Fnotes.sanketnaik.dev) &nbsp;&nbsp; [![Netlify Status](https://api.netlify.com/api/v1/badges/6c0df32f-9c60-40f9-a265-5e151fb8536d/deploy-status)](https://app.netlify.com/sites/serene-carson-4b82d1/deploys)
 
-This project was built using the following technologies -
+## Technologies Used
 
-- ReactJS
-- MaterializeCSS
-- Redux
-- Firebase Authentication
-- Firebase Firestore
+| Name        | Description |
+| ----------- | ---------------- |
+| ReactJS          | React is an open-source, front end, JavaScript library for building user interfaces or UI components. |
+| MaterializeCSS   | A modern responsive front-end framework based on Google's Material Design |
+| Redux            | Redux is an open-source JavaScript library for managing application state. |
+| Cloud Firestore  | Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.|
+| Firebase Auth    | Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app. |
+| Formik           | Formik is an open source form library for React. |
+| React Router     | React Router is a collection of navigational components that compose declaratively with your application. |
+
+&nbsp;
 
 ## Project Structure
 
@@ -18,19 +24,17 @@ The website follows a simple structure where any user can view a demo page where
 
 The pages visible to unauthenticated and authenticated users are as follows.
 
-- [React Notes](#react-notes)
-  - [Project Structure](#project-structure)
-  - [Unauthenticated User](#unauthenticated-user)
-  - [Demo Page](#demo-page)
-    - [Add Note](#add-note)
-  - [Sign In Page](#sign-in-page)
-    - [Email and Password Sign In](#email-and-password-sign-in)
-    - [Google Sign In](#google-sign-in)
-  - [Sign Up Page](#sign-up-page)
-    - [Email and Password Sign Up](#email-and-password-sign-up)
-  - [Authenticated User](#authenticated-user)
-  - [User Notes Page](#user-notes-page)
-    - [Add Note](#add-note-1)
+- [Unauthenticated User](#unauthenticated-user)
+- [Demo Page](#demo-page)
+  - [Add Note](#add-note)
+- [Sign In Page](#sign-in-page)
+  - [Email and Password Sign In](#email-and-password-sign-in)
+  - [Google Sign In](#google-sign-in)
+- [Sign Up Page](#sign-up-page)
+  - [Email and Password Sign Up](#email-and-password-sign-up)
+- [Authenticated User](#authenticated-user)
+- [User Notes Page](#user-notes-page)
+  - [Add Note](#add-note-1)
 
 ## Unauthenticated User
 
