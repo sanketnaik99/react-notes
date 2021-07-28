@@ -2,7 +2,7 @@
 
 # React Notes
 
-![Website](https://img.shields.io/website?logo=React&style=for-the-badge&url=https%3A%2F%2Fnotes.sanketnaik.dev) &nbsp;&nbsp; [![Netlify Status](https://api.netlify.com/api/v1/badges/6c0df32f-9c60-40f9-a265-5e151fb8536d/deploy-status)](https://app.netlify.com/sites/serene-carson-4b82d1/deploys)
+[![Website](https://img.shields.io/website?logo=React&style=for-the-badge&url=https%3A%2F%2Fnotes.sanketnaik.dev)](https://notes.sanketnaik.dev) &nbsp;&nbsp; [![Netlify Status](https://api.netlify.com/api/v1/badges/6c0df32f-9c60-40f9-a265-5e151fb8536d/deploy-status)](https://app.netlify.com/sites/serene-carson-4b82d1/deploys)
 
 ## Technologies Used
 
