@@ -3,9 +3,13 @@ import React, { Component } from "react";
 import "./NewNote.css";
 import * as Yup from "yup";
 import { connect } from "react-redux";
+import NewTextNote from "./NewTextNote/NewTextNote";
+import NewImage from "./NewImage/NewImage";
 
 class NewNote extends Component {
-  state = {};
+  state = {
+    currentTab: "note",
+  };
 
   descriptions = [
     <p className="new-note-description">
@@ -32,13 +36,16 @@ class NewNote extends Component {
 
   componentDidMount() {
     this.setState({
+      ...this.state,
       currentDescription: this.descriptions[Math.floor(Math.random() * 5)],
     });
   }
 
-  handleSubmit = (data, { resetForm }) => {
-    this.props.addNote(data);
-    resetForm({ values: "" });
+  handleTabChange = (tab) => {
+    this.setState({
+      ...this.state,
+      currentTab: tab,
+    });
   };
 
   render() {
@@ -47,105 +54,45 @@ class NewNote extends Component {
         <div className="row">
           <div className="col s12">
             <div className="card new-note-card">
-              <span className="card-title new-note-card-title">
-                Add New Note
-              </span>
-              {this.state.currentDescription}
-              <div className="card-content new-note-card-content">
-                <Formik
-                  initialValues={{ title: "", content: "" }}
-                  validationSchema={Yup.object({
-                    title: Yup.string()
-                      .min(3, "Please enter a valid title.")
-                      .required("A title for the note is required."),
-                    content: Yup.string()
-                      .min(20, "Please enter some valid content.")
-                      .required("Some Content for the note is required."),
-                  })}
-                  onSubmit={this.handleSubmit}
+              <div className="row">
+                <button
+                  className={[
+                    "waves-effect col s6 waves-blue",
+                    this.state.currentTab === "note"
+                      ? "white-text indigo darken-1 btn"
+                      : "btn-flat",
+                  ].join(" ")}
+                  onClick={() => this.handleTabChange("note")}
                 >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                  }) => (
-                    <form onSubmit={handleSubmit}>
-                      <div className="input-field">
-                        <input
-                          id="title"
-                          type="text"
-                          className={
-                            errors.title && touched.title
-                              ? "invalid"
-                              : touched.title && !errors.title
-                              ? "valid"
-                              : ""
-                          }
-                          value={values.title}
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                        />
-                        <label htmlFor="title">Title</label>
-                        <span
-                          className="helper-text"
-                          data-error={errors.title}
-                        ></span>
-                      </div>
-                      <div className="input-field">
-                        <textarea
-                          id="content"
-                          className={[
-                            "materialize-textarea",
-                            errors.content && touched.content
-                              ? "invalid"
-                              : touched.content && !errors.content
-                              ? "valid"
-                              : "",
-                          ].join(" ")}
-                          value={values.content}
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                        ></textarea>
-                        <label htmlFor="content">Content</label>
-                        <span
-                          className="helper-text"
-                          data-error={errors.content}
-                        ></span>
-                      </div>
-                      {/* Add Notes Error */}
-                      {this.props.addNotesError ? (
-                        <div className="row center-align">
-                          <p className="red-text">
-                            {this.props.addNotesError.name +
-                              ": " +
-                              this.props.addNotesError.code}
-                          </p>
-                        </div>
-                      ) : null}
-                      {/* Add Notes Loading */}
-                      {this.props.isLoading ? (
-                        <div className="row right-align">
-                          <div className="loader"></div>
-                        </div>
-                      ) : (
-                        <div className="row right-align">
-                          <button
-                            className="btn z-depth-2 hoverable waves-effect indigo darken-1 waves-light"
-                            type="submit"
-                            name="action"
-                          >
-                            Done
-                            <i className="material-icons right">check</i>
-                          </button>
-                        </div>
-                      )}
-                    </form>
-                  )}
-                </Formik>
+                  Add Note
+                </button>
+                <button
+                  className={[
+                    "waves-effect col s6 waves-blue btn-flat",
+                    this.state.currentTab === "image"
+                      ? "white-text indigo darken-1 btn"
+                      : "btn-flat",
+                  ].join(" ")}
+                  onClick={() => this.handleTabChange("image")}
+                >
+                  Add Image
+                </button>
               </div>
+              {this.state.currentTab === "note" ? (
+                <NewTextNote
+                  currentDescription={this.state.currentDescription}
+                  addNote={this.props.addNote}
+                  isLoading={this.props.isLoading}
+                  addNotesError={this.props.addNotesError}
+                />
+              ) : (
+                <NewImage
+                  uploadImage={this.props.uploadImage}
+                  addNote={this.props.addNote}
+                  isLoading={this.props.isLoading}
+                  addNotesError={this.props.addNotesError}
+                />
+              )}
             </div>
           </div>
         </div>

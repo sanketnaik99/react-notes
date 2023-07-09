@@ -13,6 +13,15 @@ class NoteCard extends Component {
   deleteCurrentNote = () => {
     this.props.deleteNote(this.props.note.id);
   };
+
+  updateCurrentNote = () => {
+    if (this.props.note.isDone) {
+      this.props.updateNote(this.props.note.id, false);
+    } else {
+      this.props.updateNote(this.props.note.id, true);
+    }
+  };
+
   render() {
     return (
       <div className="row">
@@ -20,12 +29,42 @@ class NoteCard extends Component {
         <div className="col s12 m8">
           <div className="card z-depth-2 hoverable">
             <div className="card-content">
-              <span className="card-title demo-note-title">
-                {this.props.note.title}
-              </span>
-              <p>{this.props.note.content}</p>
+              {this.props.note.title ? (
+                <span
+                  className={[
+                    "card-title demo-note-title",
+                    this.props.note.isDone ? "strike" : "",
+                  ].join(" ")}
+                >
+                  {this.props.note.title}
+                </span>
+              ) : (
+                <img
+                  src={this.props.note.imageURL}
+                  alt={this.props.note.content}
+                  style={{ width: "100%" }}
+                />
+              )}
+              <p className={this.props.note.isDone ? "strike" : ""}>
+                {this.props.note.content}
+              </p>
             </div>
-            <div className="card-action">
+            <div className="card-action card-actions-row">
+              {this.props.note.isDone ? (
+                <button
+                  className="waves-effect waves-light orange darken-1 btn-small"
+                  onClick={this.updateCurrentNote}
+                >
+                  <i className="material-icons left">undo</i>Mark as Pending
+                </button>
+              ) : (
+                <button
+                  className="waves-effect waves-light green darken-1 btn-small"
+                  onClick={this.updateCurrentNote}
+                >
+                  <i className="material-icons left">check</i>Mark as Done
+                </button>
+              )}
               <a
                 className="waves-effect waves-light red darken-2 btn-small modal-trigger"
                 href={"#deleteNote" + this.props.note.id}
@@ -40,7 +79,7 @@ class NoteCard extends Component {
             <h4>Confirm</h4>
             <p>
               Are you sure that you want to delete the following note -{" "}
-              {this.props.note.title}?
+              {this.props.note.title || this.props.note.content}?
             </p>
           </div>
           <div className="modal-footer">

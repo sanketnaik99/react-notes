@@ -6,7 +6,9 @@ import {
   addUserNote,
   deleteUserNote,
   getUserNotes,
+  updateUserNote,
   STOP_LOADING_GET_NOTES,
+  uploadUserImage,
 } from "../../store/actions/userNotesActions";
 import { DEMO_PAGE_ROUTE } from "../../routes";
 import "./Notes.css";
@@ -36,6 +38,7 @@ class Notes extends Component {
         <NotesList
           notes={this.props.notes}
           deleteNote={this.props.deleteNote}
+          updateNote={this.props.updateNote}
         />
       ) : (
         <div className="row center-align">
@@ -51,9 +54,13 @@ class Notes extends Component {
           </p>
         </div>
       );
+
     return (
       <div>
-        <NewNote addNote={(note) => this.props.addNote(note)} />
+        <NewNote
+          addNote={(title, content, imageURL) => this.props.addNote(title, content, imageURL)}
+          uploadImage={(image) => this.props.uploadImage(image)}
+        />
         {this.props.isLoading ? (
           <div className="sk-folding-cube">
             <div className="sk-cube1 sk-cube"></div>
@@ -79,9 +86,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNote: (note) => dispatch(addUserNote(note)),
+    addNote: (title, content, imageURL) => dispatch(addUserNote(title, content, imageURL)),
     getNotes: (uid) => dispatch(getUserNotes(uid)),
     deleteNote: (id) => dispatch(deleteUserNote(id)),
+    updateNote: (id, isDone) => dispatch(updateUserNote(id, isDone)),
+    uploadImage: (image) => dispatch(uploadUserImage(image)),
     stopLoading: () => dispatch({ type: STOP_LOADING_GET_NOTES }),
   };
 };

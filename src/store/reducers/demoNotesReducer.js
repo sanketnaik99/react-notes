@@ -1,4 +1,8 @@
-import { ADD_DEMO_NOTE, DELETE_DEMO_NOTE } from "../actions/demoNotesActions";
+import {
+  ADD_DEMO_NOTE,
+  DELETE_DEMO_NOTE,
+  UPDATE_DEMO_NOTE,
+} from "../actions/demoNotesActions";
 
 const initialState = {
   notes: [
@@ -29,6 +33,18 @@ const demoReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: newNotes,
+      };
+    case UPDATE_DEMO_NOTE:
+      const updatedNotes = state.notes.map((note) => {
+        if (note.id === action.id) {
+          return { ...note, isDone: action.isDone };
+        } else {
+          return note;
+        }
+      });
+      return {
+        ...state,
+        notes: updatedNotes,
       };
     default:
       return state;

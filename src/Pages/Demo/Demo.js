@@ -7,6 +7,7 @@ import { NOTES_ROUTE } from "../../routes";
 import {
   addDemoNote,
   deleteDemoNote,
+  updateDemoNote,
 } from "../../store/actions/demoNotesActions";
 
 class Demo extends Component {
@@ -21,6 +22,7 @@ class Demo extends Component {
         <NotesList
           notes={this.props.notes}
           deleteNote={this.props.deleteNote}
+          updateNote={this.props.updateNote}
         />
       </div>
     );
@@ -38,6 +40,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addNote: (note) => dispatch(addDemoNote(note)),
     deleteNote: (id) => dispatch(deleteDemoNote(id)),
+    updateNote: (id, isDone) => dispatch(updateDemoNote(id, isDone)),
   };
 };
 
