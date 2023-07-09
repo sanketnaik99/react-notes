@@ -10,6 +10,7 @@ const filesPath = "userUploads";
 const NewImage = (props) => {
   const firebase = useFirebase();
   const [imageURL, setImageURL] = useState("");
+  const [isImageUploading, setImageUploading] = useState(false);
   const [hasMissingImage, setMissingImage] = useState(false);
 
   const handleSubmit = (data, { resetForm }) => {
@@ -21,9 +22,11 @@ const NewImage = (props) => {
     }
     props.addNote(null, data.content, imageURL);
     resetForm({ values: "" });
+    setImageURL("");
   };
 
   function onFilesDrop(files) {
+    setImageUploading(true);
     firebase
       .uploadFile(filesPath, files[0])
       .then(async (res) => {
@@ -35,9 +38,11 @@ const NewImage = (props) => {
           .child(res.uploadTaskSnapshot.ref.name)
           .getDownloadURL();
         setImageURL(URL);
+        setImageUploading(false);
       })
       .catch((err) => {
         console.log(err);
+        setImageUploading(false);
       });
   }
 
@@ -46,9 +51,9 @@ const NewImage = (props) => {
       <span className="card-title new-note-card-title">Add New Image</span>
       <p className="new-note-description">Add a new image to your collection</p>
       <div className="card-content new-note-card-content">
-        {imageURL ? (
+        {imageURL && !isImageUploading ? (
           <img src={imageURL} alt="Uploaded" style={{ width: "100%" }} />
-        ) : (
+        ) : imageURL === "" && !isImageUploading ? (
           <div className="dropzone-container">
             <Dropzone onDrop={onFilesDrop}>
               {({ getRootProps, getInputProps }) => (
@@ -62,6 +67,10 @@ const NewImage = (props) => {
                 </section>
               )}
             </Dropzone>
+          </div>
+        ) : (
+          <div className="row right-align">
+            <div className="loader"></div>
           </div>
         )}
         {hasMissingImage && (
