@@ -1,7 +1,5 @@
-import { Formik } from "formik";
 import React, { Component } from "react";
 import "./NewNote.css";
-import * as Yup from "yup";
 import { connect } from "react-redux";
 import NewTextNote from "./NewTextNote/NewTextNote";
 import NewImage from "./NewImage/NewImage";
